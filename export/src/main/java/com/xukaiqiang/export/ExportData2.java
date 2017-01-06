@@ -25,6 +25,7 @@ import com.xukaiqiang.entity.common.Common;
 import com.xukaiqiang.entity.makeloancheck.ApplyPeople;
 import com.xukaiqiang.entity.makeloancheck.GoodsList;
 import com.xukaiqiang.entity.makeloancheck.MakeLoanCheckList;
+import com.xukaiqiang.entity.makeloancheck3.LoanApplyResponse;
 import com.xukaiqiang.entity.task.TaskCancel;
 import com.xukaiqiang.entity.task.TaskDone;
 import com.xukaiqiang.entity.task.TaskSettled;
@@ -55,7 +56,7 @@ public class ExportData2 {
 			// 创建sheet
 			for (Request request : collection.getRequests()) {
 				if (folder.getId().equals(request.getFolder())) {
-					System.out.println(request.getName());
+					System.out.println("输出请求的名称："+request.getName());
 					Sheet sheet1 = wb.createSheet(request.getName());
 					wb.getSheet(request.getName()).setDefaultColumnWidth(50);
 					// 创建行
@@ -131,8 +132,8 @@ public class ExportData2 {
 						insertValues(sheet1, row, style, GoodsList.class);
 					} else if (request.getName().trim().equals("放款审查进件列表查询")) {
 						insertValues(sheet1, row, style, MakeLoanCheckList.class);
-					} else if (request.getName().trim().equals("查询公共内容")) {
-						 insertValues(sheet1, row, style, Common.class);
+					} else if (request.getName().trim().equals("查询公共内容放款审查")) {
+						 insertValues(sheet1, row, style, LoanApplyResponse.class);
 					}
 
 					// 用款申请
@@ -264,7 +265,7 @@ public class ExportData2 {
 			}else{
 				Class<?> cls=null;
 				try {
-					cls = Class.forName("com.xukaiqiang.entity.common."+f.getName());
+					cls = Class.forName("com.xukaiqiang.entity.makeloancheck3."+f.getName());
 					Field[] fieldObj=cls.getDeclaredFields();
 					for (int j = 0; j < fieldObj.length; j++) {
 						Field field3=fieldObj[j];
