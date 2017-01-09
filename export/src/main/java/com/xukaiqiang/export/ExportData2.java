@@ -83,6 +83,7 @@ public class ExportData2 {
 
 							Cell cell2_2 = row2.createCell(1);
 							String name = new DBHelper().queryNameByColumn(entry.getKey());
+							System.out.println(entry.getKey()+"========================"+name);
 							cell2_2.setCellValue(name);
 
 							Cell cell2_3 = row2.createCell(2);
@@ -103,6 +104,7 @@ public class ExportData2 {
 
 							Cell cell2_2 = row2.createCell(1);
 							String name = new DBHelper().queryNameByColumn(data.getKey());
+							System.out.println(data.getKey()+"========================"+name);
 							cell2_2.setCellValue(name);
 
 							Cell cell2_3 = row2.createCell(2);

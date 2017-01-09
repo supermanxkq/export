@@ -29,10 +29,17 @@ public class LoanApplyResponse {
     private GoodsList GoodsList;//商品列表
     private LoanApplyPeopleOfZS LoanApplyPeopleOfZS;//主申请人
     private PersonListOfGS  PersonListOfGS;  //共同申请人
-    
-    
+    private LoanApplyContract  LoanApplyContract;//合同
 
-    public AccountList getAccountList() {
+    public LoanApplyContract getLoanApplyContract() {
+		return LoanApplyContract;
+	}
+
+	public void setLoanApplyContract(LoanApplyContract loanApplyContract) {
+		LoanApplyContract = loanApplyContract;
+	}
+
+	public AccountList getAccountList() {
 		return AccountList;
 	}
 
