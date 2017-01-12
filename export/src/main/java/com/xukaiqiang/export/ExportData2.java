@@ -21,6 +21,7 @@ import com.xukaiqiang.entity.Folder;
 import com.xukaiqiang.entity.Request;
 import com.xukaiqiang.entity.Response;
 import com.xukaiqiang.entity.Url;
+import com.xukaiqiang.entity.applymoney.FlowLoanApplyPageResponse;
 import com.xukaiqiang.entity.common.Common;
 import com.xukaiqiang.entity.makeloancheck.ApplyPeople;
 import com.xukaiqiang.entity.makeloancheck.GoodsList;
@@ -140,11 +141,13 @@ public class ExportData2 {
 
 					// 用款申请
 					else if (request.getName().trim().equals("查询公共内容")) {
-						// insertValues(sheet1, row, style, GoodsList.class);
+						 insertValues(sheet1, row, style, LoanApplyResponse.class);
 					} else if (request.getName().trim().equals("查询商品列表")) {
 						insertValues(sheet1, row, style, GoodsList.class);
 					} else if (request.getName().trim().equals("申请人账号列表")) {
 						insertValues(sheet1, row, style, ApplyPeopleAccountList.class);
+					}else if (request.getName().trim().equals("查询用款信息列表")) {
+						insertValues(sheet1, row, style, FlowLoanApplyPageResponse.class);
 					}
 
 					// 电话回访

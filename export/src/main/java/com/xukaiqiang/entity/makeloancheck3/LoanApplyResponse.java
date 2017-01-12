@@ -22,6 +22,8 @@ public class LoanApplyResponse {
     private String materialNo;
     private String loanInChannelCode;
     private String comment;
+    
+    
     private AccountList AccountList;
     private FeeList FeeList;//费用信息
     private SubList SubList;
@@ -30,8 +32,44 @@ public class LoanApplyResponse {
     private LoanApplyPeopleOfZS LoanApplyPeopleOfZS;//主申请人
     private PersonListOfGS  PersonListOfGS;  //共同申请人
     private LoanApplyContract  LoanApplyContract;//合同
+    private ApplySub  ApplySub;
+    private PaymentMethod PaymentMethod;
+    private LoanMakeLoan LoanMakeLoan;
+    private LoanMakeLoanSettle LoanMakeLoanSettle;
+    
+    public LoanMakeLoanSettle getLoanMakeLoanSettle() {
+		return LoanMakeLoanSettle;
+	}
 
-    public LoanApplyContract getLoanApplyContract() {
+	public void setLoanMakeLoanSettle(LoanMakeLoanSettle loanMakeLoanSettle) {
+		LoanMakeLoanSettle = loanMakeLoanSettle;
+	}
+
+	public LoanMakeLoan getLoanMakeLoan() {
+		return LoanMakeLoan;
+	}
+
+	public void setLoanMakeLoan(LoanMakeLoan loanMakeLoan) {
+		LoanMakeLoan = loanMakeLoan;
+	}
+
+	public PaymentMethod getPaymentMethod() {
+		return PaymentMethod;
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		PaymentMethod = paymentMethod;
+	}
+
+	public ApplySub getApplySub() {
+		return ApplySub;
+	}
+
+	public void setApplySub(ApplySub applySub) {
+		ApplySub = applySub;
+	}
+
+	public LoanApplyContract getLoanApplyContract() {
 		return LoanApplyContract;
 	}
 
