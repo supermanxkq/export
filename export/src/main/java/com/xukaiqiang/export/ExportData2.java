@@ -23,12 +23,15 @@ import com.xukaiqiang.entity.Response;
 import com.xukaiqiang.entity.Url;
 import com.xukaiqiang.entity.applymoney.FlowLoanApplyPageResponse;
 import com.xukaiqiang.entity.common.Common;
+import com.xukaiqiang.entity.makeloan.MakeLoan;
 import com.xukaiqiang.entity.makeloancheck.ApplyPeople;
 import com.xukaiqiang.entity.makeloancheck.GoodsList;
 import com.xukaiqiang.entity.makeloancheck.MakeLoanCheckList;
 import com.xukaiqiang.entity.makeloancheck3.LoanApplyResponse;
+import com.xukaiqiang.entity.supercallback.SuperCallBack;
 import com.xukaiqiang.entity.task.TaskCancel;
 import com.xukaiqiang.entity.task.TaskDone;
+import com.xukaiqiang.entity.task.TaskRefused;
 import com.xukaiqiang.entity.task.TaskSettled;
 import com.xukaiqiang.entity.task.TaskToDo;
 import com.xukaiqiang.entity.telcheck.TelCheck;
@@ -57,7 +60,7 @@ public class ExportData2 {
 			// 创建sheet
 			for (Request request : collection.getRequests()) {
 				if (folder.getId().equals(request.getFolder())) {
-					System.out.println("输出请求的名称："+request.getName());
+					System.out.println("输出请求的名称：" + request.getName());
 					Sheet sheet1 = wb.createSheet(request.getName());
 					wb.getSheet(request.getName()).setDefaultColumnWidth(50);
 					// 创建行
@@ -84,7 +87,7 @@ public class ExportData2 {
 
 							Cell cell2_2 = row2.createCell(1);
 							String name = new DBHelper().queryNameByColumn(entry.getKey());
-							System.out.println(entry.getKey()+"========================"+name);
+							System.out.println(entry.getKey() + "========================" + name);
 							cell2_2.setCellValue(name);
 
 							Cell cell2_3 = row2.createCell(2);
@@ -105,7 +108,7 @@ public class ExportData2 {
 
 							Cell cell2_2 = row2.createCell(1);
 							String name = new DBHelper().queryNameByColumn(data.getKey());
-							System.out.println(data.getKey()+"========================"+name);
+							System.out.println(data.getKey() + "========================" + name);
 							cell2_2.setCellValue(name);
 
 							Cell cell2_3 = row2.createCell(2);
@@ -127,34 +130,52 @@ public class ExportData2 {
 						insertValues(sheet1, row, style, TaskDone.class);
 					} else if (request.getName().trim().equals("查询取消任务列表分页")) {
 						insertValues(sheet1, row, style, TaskCancel.class);
-
+						// 拒绝任务
+					} else if (request.getName().trim().equals("查询拒绝任务列表分页")) {
+						insertValues(sheet1, row, style, TaskRefused.class);
+						// 拒绝任务
 						// 放款审查
-					} else if (request.getName().trim().equals("查询主申请人和共同申请人")) {
-						insertValues(sheet1, row, style, ApplyPeople.class);
-					} else if (request.getName().trim().equals("查询商品列表")) {
-						insertValues(sheet1, row, style, GoodsList.class);
 					} else if (request.getName().trim().equals("放款审查进件列表查询")) {
 						insertValues(sheet1, row, style, MakeLoanCheckList.class);
 					} else if (request.getName().trim().equals("查询公共内容放款审查")) {
-						 insertValues(sheet1, row, style, LoanApplyResponse.class);
+						insertValues(sheet1, row, style, LoanApplyResponse.class);
 					}
 
 					// 用款申请
 					else if (request.getName().trim().equals("查询公共内容")) {
-						 insertValues(sheet1, row, style, LoanApplyResponse.class);
-					} else if (request.getName().trim().equals("查询商品列表")) {
+						insertValues(sheet1, row, style, LoanApplyResponse.class);
+						// } else if (request.getName().trim().equals("查询商品列表"))
+						// {
 						insertValues(sheet1, row, style, GoodsList.class);
 					} else if (request.getName().trim().equals("申请人账号列表")) {
-						insertValues(sheet1, row, style, ApplyPeopleAccountList.class);
-					}else if (request.getName().trim().equals("查询用款信息列表")) {
+						// insertValues(sheet1, row, style,
+						// ApplyPeopleAccountList.class);
+					} else if (request.getName().trim().equals("查询用款信息列表")) {
 						insertValues(sheet1, row, style, FlowLoanApplyPageResponse.class);
+					} 
+					// 上级电话回访
+					else if (request.getName().trim().equals("上级电话回访公共页面")) {
+						insertValues(sheet1, row, style, LoanApplyResponse.class);
+					} else if (request.getName().trim().equals("查询上级电话回访列表页面")) {
+						insertValues(sheet1, row, style, SuperCallBack.class);
+					} else if (request.getName().trim().equals("上级电话申请人信息")) {
+						// insertValues(sheet1, row, style,
+						// SuperCallBack.class);
 					}
-
 					// 电话回访
 					else if (request.getName().trim().equals("电话回访信息")) {
 						insertValues(sheet1, row, style, TelCheck.class);
 					} else if (request.getName().trim().equals("电话回访进件信息")) {
 						insertValues(sheet1, row, style, TelLst.class);
+
+					} else if (request.getName().trim().equals("电话回访贷款信息")) {
+						insertValues(sheet1, row, style, LoanApplyResponse.class);
+						// 放款
+					} else if (request.getName().trim().equals("放款公共信息查询")) {
+						insertValues(sheet1, row, style, LoanApplyResponse.class);
+						// 放款列表信息查询
+					} else if (request.getName().trim().equals("放款列表信息查询")) {
+						insertValues(sheet1, row, style, MakeLoan.class);
 					}
 
 					//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -267,14 +288,14 @@ public class ExportData2 {
 					System.out.println(f.getType() + "\t");
 				}
 
-			}else{
-				Class<?> cls=null;
+			} else {
+				Class<?> cls = null;
 				try {
-					cls = Class.forName("com.xukaiqiang.entity.makeloancheck3."+f.getName());
-					Field[] fieldObj=cls.getDeclaredFields();
+					cls = Class.forName("com.xukaiqiang.entity.makeloancheck3." + f.getName());
+					Field[] fieldObj = cls.getDeclaredFields();
 					for (int j = 0; j < fieldObj.length; j++) {
-						Field field3=fieldObj[j];
-						Row row2 = sheet1.createRow(row+1+j);
+						Field field3 = fieldObj[j];
+						Row row2 = sheet1.createRow(row + 1 + j);
 						// 第一列
 						Cell cell2_1 = row2.createCell(0);
 						cell2_1.setCellValue(field3.getName());
@@ -299,10 +320,10 @@ public class ExportData2 {
 						}
 						Cell asdf = row2.createCell(3);
 						asdf.setCellValue(f.getName());
-						asdf.setCellStyle(style);	
-					
+						asdf.setCellStyle(style);
+
 					}
-					row+=fieldObj.length+2;
+					row += fieldObj.length + 2;
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
